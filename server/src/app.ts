@@ -5,14 +5,14 @@ import { routeNotFound } from './middleware/routeNotFound.js';
 import favicon from 'serve-favicon';
 import path from 'path';
 import router from './routes/index.js';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from './Model/index.js';
 export const app = express();
 
 const faviconPath = path.resolve(import.meta.dirname, '..', 'public', 'images', 'favicon.ico');
-const prisma = new PrismaClient();
 
 async function main() {
     await prisma.$connect();
+    console.log('connected');
 }
 
 main();
