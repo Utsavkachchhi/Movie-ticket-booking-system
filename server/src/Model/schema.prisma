@@ -13,4 +13,17 @@ model User {
     email String
     mobile Int?
     gender String?
+    password String
+
+    @@map("users")
+}
+
+model City{
+id	String @id @default(auto()) @map("_id") @db.ObjectId
+name	String
+state	String
+country	String
+created_at DateTime?
+
+@@map("city")
 }

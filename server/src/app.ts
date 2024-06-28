@@ -6,6 +6,7 @@ import favicon from 'serve-favicon';
 import path from 'path';
 import router from './routes/index.js';
 import { prisma } from './Model/index.js';
+import cookieParser from 'cookie-parser';
 export const app = express();
 
 const faviconPath = path.resolve(import.meta.dirname, '..', 'public', 'images', 'favicon.ico');
@@ -14,7 +15,6 @@ async function main() {
     await prisma.$connect();
     console.log('connected');
 }
-
 main();
 // .then(async () => {
 //     await prisma.$disconnect();
@@ -31,6 +31,7 @@ app.use(express.urlencoded({ extended: true, limit: '24kb' }));
 app.use(express.static('public'));
 app.use(loggingFunction);
 app.use(cors());
+app.use(cookieParser());
 
 app.use('/api/v1', router);
 
