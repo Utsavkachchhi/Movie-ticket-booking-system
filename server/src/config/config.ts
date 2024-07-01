@@ -1,17 +1,11 @@
-import dotenv from "dotenv"
-import path from "path";
+import dotenv from 'dotenv';
 
-// ENV File Setup
-const envUrl = process.env.NODE_ENV
-  ? path.resolve(import.meta.dirname,'..','..', `.env.${process.env.NODE_ENV}`)
-  : path.resolve(import.meta.dirname,'..','..', `.env`);
+dotenv.config();
 
-dotenv.config({
-  path: envUrl,
-});
-
-const SERVER_PORT = process.env.PORT ? Number(process.env.PORT) : 4123
+const ENVIRONMENT = process.env.NODE_ENV || 'development';
+const SERVER_PORT = process.env.PORT ? Number(process.env.PORT) : 4123;
 
 export const Server = {
-    SERVER_PORT
-}
+    SERVER_PORT,
+    ENVIRONMENT
+};
