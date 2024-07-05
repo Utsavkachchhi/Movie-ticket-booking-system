@@ -1,5 +1,4 @@
-import { ThunkDispatch } from "redux-thunk";
-import { AnyAction } from "redux";
+import { Dispatch } from "redux";
 import { loginApi } from "../../services/userService";
 import {
   LoginDetails,
@@ -8,7 +7,7 @@ import {
 } from "./loginSlice";
 
 export const loginAction = (payload: any) => {
-  return function (dispatch: ThunkDispatch<{}, {}, AnyAction>) {
+  return function (dispatch: Dispatch) {
     dispatch(LoginDetails(payload));
     loginApi(payload)
       .then((res) => {

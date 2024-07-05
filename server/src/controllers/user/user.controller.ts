@@ -12,6 +12,13 @@ import { forgotPasswordMail } from '../../utils/nodemailer.js';
 export const registerUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email, name, mobile, gender, password } = req.body;
+
+        let emailExist = await prisma.user.findFirst({ where: { email: email } });
+
+        if (emailExist) {
+            throw new ApiError(502, 'Email id you have entered that already exists!');
+        }
+
         let payload: RegisterUserRequest = {
             email: email,
             name: name,
@@ -19,9 +26,9 @@ export const registerUser = asyncHandler(async (req: Request, res: Response, nex
             gender: gender,
             password: hashSync(password, 10)
         };
-
+        const verificationToken = generateToken(email, '1d');
         const createUser = await prisma.user.create({ data: payload });
-        return res.json(new ApiResponse(200, createUser, 'new user add successfully'));
+        return res.json(new ApiResponse(200, createUser, 'your account is created please verify your account in mail that you have entered'));
     } catch (error: any) {
         console.error(error);
 
