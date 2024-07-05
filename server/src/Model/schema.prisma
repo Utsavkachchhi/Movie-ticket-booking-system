@@ -10,7 +10,7 @@ generator client {
 model User {
     id String @id @default(auto()) @map("_id") @db.ObjectId
     name String
-    email String
+    email String @unique
     mobile Int?
     gender String?
     password String
